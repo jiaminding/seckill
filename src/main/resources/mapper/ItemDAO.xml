@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.djm.seckill.dao.ItemDAO">
+  <resultMap id="BaseResultMap" type="com.djm.seckill.model.ItemDO">
+    <!--@mbg.generated-->
+    <!--@Table item-->
+    <id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="price" property="price" />
+    <result column="stock_count" property="stockCount" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, price, stock_count, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from item
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from item
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.djm.seckill.model.ItemDO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into item (`name`, price, stock_count, create_time, update_time)
+    values (#{name}, #{price}, #{stockCount}, #{createTime}, #{updateTime})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.djm.seckill.model.ItemDO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="stockCount != null">
+        stock_count,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="price != null">
+        #{price},
+      </if>
+      <if test="stockCount != null">
+        #{stockCount},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.djm.seckill.model.ItemDO">
+    <!--@mbg.generated-->
+    update item
+    <set>
+      <if test="name != null">
+        `name` = #{name},
+      </if>
+      <if test="price != null">
+        price = #{price},
+      </if>
+      <if test="stockCount != null">
+        stock_count = #{stockCount},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.djm.seckill.model.ItemDO">
+    <!--@mbg.generated-->
+    update item
+    set `name` = #{name},
+      price = #{price},
+      stock_count = #{stockCount},
+      create_time = #{createTime},
+      update_time = #{updateTime}
+    where id = #{id}
+  </update>
+  <select id="listAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from item
+  </select>
+  <update id="reduceStock">
+    <!--@mbg.generated-->
+    update item
+    set stock_count = stock_count - #{quantity}
+    where id = #{id}
+  </update>
+</mapper>
